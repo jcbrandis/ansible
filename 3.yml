@@ -1,0 +1,34 @@
+---
+- hosts: switches
+  gather_facts: no
+  connection: network_cli
+
+  tasks:
+
+#  - name: run show ver
+#    ios_command:
+#      commands: show version
+
+#  - copy: content="{{ iosfacts_out | to_nice_json }}" dest="{{inventory_hostname}}_iosfacts.json"
+
+  - name: SHOW RUN
+    ios_command:
+      commands:
+        - show int status
+        - show int gig0/1
+    register: show_int_output
+
+  - name: show output
+    debug:
+      var: show_int_output.stdout
+
+  - name: copy to file
+    copy: content="{{ show_int_output.stdout[0] }}" dest={{ inventory_hostname }}.txt
+
+#  - name: append
+#    lineinfile:
+#      dest: 3.txt
+#      line: "{{ show_int_output }}"
+#      insertafter: EOF
+ 
+ # - debug: var=after_vty.stdout_lines

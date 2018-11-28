@@ -1,0 +1,29 @@
+---
+- hosts: switches
+  gather_facts: no
+  connection: network_cli
+
+  tasks:
+
+  - name: run show ver
+    ios_command:
+      commands: show version
+
+#  - copy: content="{{ iosfacts_out | to_nice_json }}" dest="{{inventory_hostname}}_iosfacts.json"
+
+  - name: SHOW RUN
+    ios_command:
+      commands:
+        - show int vlan1
+    register: output
+
+  - name: show output
+    debug:
+      var: output.stdout
+
+  - name: copy to file
+    copy: content="{{ output.stdout[0] }}" dest={{ inventory_hostname }}.txt
+
+
+ 
+ # - debug: var=after_vty.stdout_lines

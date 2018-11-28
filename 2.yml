@@ -1,0 +1,22 @@
+---
+- name: stuff
+  hosts: switches
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+
+  - name: run show ver
+    ios_command:
+      commands: show version 
+
+      regsietr: print_output
+
+  - name: output to file
+    debug:
+      var: output.stdout_lines
+
+
+  - name: copy to file
+    copy: content="{{ output.stdout[0] }}" dest={{ inventory_hostname }}.txt
+#  - debug: var=after_vty.stdout_lines

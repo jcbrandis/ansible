@@ -1,0 +1,17 @@
+---
+- name: interface description change
+  hosts: switches
+  connection: network_cli
+  become: yes
+  become_method: enable
+  gather_facts: no
+
+
+  tasks:
+    - name: Interface Description
+      ios_config:
+        lines:
+          - description uplink
+        parents: interface fa0/1
+
+
