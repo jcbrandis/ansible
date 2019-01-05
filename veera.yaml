@@ -1,0 +1,52 @@
+---
+- name: Create and Deploy Access List to CPE Vulnerable to SCSvm02856
+  connection: network_cli
+  hosts: 1800cpe
+  gather_facts: false
+  tasks:
+
+#    - name: Gather IOS Facts 
+#      ios_facts:
+
+    - name: Create Access List SCSvm02856 for Vulnerability Mitigation
+      ios_config:
+        lines:
+          - ip access-list extended SCSvm02856_Mitigation
+
+
+    - name: Apply Access List Entries for SCSvm02856 Mitigation
+      ios_config:
+        lines:
+          - 10 deny tcp any any eq 1099
+          - 50 permit ip any any
+        parents: ip access-list extended SCSvm02856_Mitigation
+
+    - name: Verify ACL Is In Place - Register the output 
+      ios_command:
+        commands: 
+            - show ip access-lists
+      register: output
+      tags:
+        - verify
+
+    - name: Flag to cli if we dont find deny statement othersie skip
+      debug:
+       msg: "Houston we have a problem on node {{ inventory_hostname }}"
+      when: "'deny tcp any any eq 1099' not in output.stdout[0]"
+      tags:
+        - verify
+
+    - name: For Testing Flag we did find the deny - only lab run this 
+      debug:
+       msg: "found the entry on this node {{ inventory_hostname }}"
+      when: "'deny tcp any any eq 1099' in output.stdout[0]"
+      tags:
+        - verify
+...
+
+# This is a training play to update interface settins on CPE's
+# Reads in the host_var variables
+# Simply applies symetrically
+# Play is against all hosts (for now)
+
+

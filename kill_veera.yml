@@ -1,0 +1,14 @@
+---
+- name: Kill the Veera ACL 
+  connection: network_cli
+  hosts: 1800cpe
+  gather_facts: false
+  tasks:
+
+#    - name: Gather IOS Facts 
+#      ios_facts:
+
+    - name: no the access list
+      ios_config:
+        lines:
+          - no ip access-list extended SCSvm02856_Mitigation
