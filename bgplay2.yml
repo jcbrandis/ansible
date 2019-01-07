@@ -1,0 +1,15 @@
+---
+- name: Generate BGP Configs from J2 Template
+  hosts: localhost
+
+  roles:
+    - bgp
+
+- name: Deployment Phase
+  connection: network_cli
+  hosts: 1800cpe
+  gather_facts: false
+  tasks:
+    - name: Deploy BGP Snippets
+      ios_config:
+        src: /home/jbrandis/ansible/configrepo/{{inventory_hostname}}.bgp

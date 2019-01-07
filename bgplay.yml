@@ -1,0 +1,6 @@
+---
+- name: Generate CPE Configs
+  hosts: localhost
+
+  roles:
+    - bgp
