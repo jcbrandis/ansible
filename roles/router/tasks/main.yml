@@ -1,0 +1,4 @@
+---
+- name: Generate Config Files
+  template: src=router.j2 dest=/home/jbrandis/ansible/configrepo/{{item.hostname}}.txt
+  with_items: "{{ routers }}"

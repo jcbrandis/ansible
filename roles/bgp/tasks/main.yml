@@ -1,0 +1,4 @@
+---
+- name: Generate BGP Config Files
+  template: src=bgp.j2 dest=/home/jbrandis/ansible/configrepo/{{item.hostname}}.bgp
+  with_items: "{{ routers }}"

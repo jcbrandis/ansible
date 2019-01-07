@@ -1,0 +1,11 @@
+---
+routers:
+  - hostname: r1
+    local_as_number: 65001
+    my_peer_as: 65002
+    my_peer_ip: 192.168.1.102
+
+  - hostname: r2
+    local_as_number: 65002
+    my_peer_as: 65001
+    my_peer_ip: 192.168.1.101

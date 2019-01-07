@@ -1,0 +1,14 @@
+---
+routers:
+  - hostname: cpe1
+    enable_secret: secret-password-cpe1
+    loopback: 1.1.1.1 255.255.255.255
+
+  - hostname: cpe2
+    enable_secret: secret-password-cpe2
+    loopback: 2.2.2.2 255.255.255.255
+
+  - hostname: cpe3
+    enable_secret: secret-password-cpe3
+    loopback: 3.3.3.3 255.255.255.255
+

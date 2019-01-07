@@ -1,0 +1,5 @@
+{% for interface in interfaces %}
+interface {{ interface.int_name }}
+ip address {{ interface.ip_address }} {{ interface.ip_mask }}
+description {{ inventory_hostname }}
+{% endfor %}

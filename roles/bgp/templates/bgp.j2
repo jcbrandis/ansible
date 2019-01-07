@@ -1,0 +1,10 @@
+router bgp {{item.local_as_number}}
+ no synchronization
+ bgp log-neighbor-changes
+ redistribute connected
+ neighbor {{item.my_peer_ip}} remote-as {{item.my_peer_as}}
+ neighbor {{item.my_peer_ip}} update-source FastEthernet0
+ neighbor {{item.my_peer_ip}} next-hop-self
+ neighbor {{item.my_peer_ip}} send-community both
+ neighbor {{item.my_peer_ip}} soft-reconfiguration inbound
+ no auto-summary

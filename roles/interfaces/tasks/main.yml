@@ -1,0 +1,5 @@
+---
+# tasks file for roles/interfaces
+- name: Generate Interface Configs 
+  template: src=interfaces.j2 dest=/home/jbrandis/ansible/configrepo/{{item.hostname}}.interfaces
+  with_items: "{{ interfaces }}"

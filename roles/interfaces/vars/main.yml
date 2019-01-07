@@ -1,0 +1,12 @@
+---
+
+interfaces:
+  - hostname: r1
+    int_name: fa4
+    ip_address: 10.222.4.1
+    ip_mask: 255.255.255.0
+
+  - hostname: r2
+    int_name: fa5
+    ip_address: 10.223.5.1
+    ip_mask: 255.255.255.0
