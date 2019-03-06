@@ -1,0 +1,19 @@
+---
+- name: GET The Facts Bro
+  connection: network_cli
+  gather_facts: false
+  hosts: all
+  tasks:
+    - name: Gather IOS Facts 
+      ios_facts:
+
+    - name: Display Hostname Facts 
+      debug:
+        msg: "The hostname is {{ ansible_net_hostname }} and the os is {{ ansible_net_version }}"
+#      when: ansible_net_version ==  "12.4(6)T7"
+
+    - name: Display Hardware Facts   
+      debug:
+        msg: "The Serial is {{ ansible_net_serialnum }} and the Model is {{ ansible_net_model }}"
+#      when: ansible_net_version ==  "12.4(6)T7"
+...

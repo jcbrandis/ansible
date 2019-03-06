@@ -1,0 +1,14 @@
+## space free memory from get facts
+---
+- name: The Free Space Checker
+  connection: network_cli
+  hosts: 1800cpe
+  gather_facts: false
+  tasks:
+
+   - name: Gather IOS Facts 
+     ios_facts:
+
+   - name: Display Some Facts
+     debug:
+      var: "ansible_net_filesystems_info[ansible_net_filesystems[0]]['spacefree_kb']"

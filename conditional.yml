@@ -1,0 +1,16 @@
+## conditional when, to show hostname lab
+---
+- name: The Interface Checker
+  connection: network_cli
+  hosts: 1800cpe
+  gather_facts: false
+  tasks:
+    - name: Show the hostname
+      ios_command:
+        commands: "show run | i hostname"
+      register: output
+
+    - debug:
+        var: output
+      when: "'r2' in output.stdout[0]"
+...

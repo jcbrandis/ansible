@@ -1,0 +1,9 @@
+---
+- name: Change Loopback Desc using IOS_INTERFACE module
+  hosts: 1800cpe 
+  connection: network_cli
+  tasks:
+  - name: Change Loopback Description
+    ios_interface:
+      name: Loopback0
+      description: move along its blank

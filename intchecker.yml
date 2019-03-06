@@ -1,0 +1,20 @@
+## Check an interface for speed, pump to screen
+---
+- name: The Interface Checker
+  connection: network_cli
+  hosts: 1800cpe
+  gather_facts: false
+  tasks:
+
+   - name: Gather IOS Facts 
+     ios_facts:
+
+   - name: Display Some Facts
+#     debug:
+     set_fact:
+       blah: "{{ ansible_net_interfaces.FastEthernet0['bandwidth'] }}"
+#     register: bandaid
+# above is for testing only
+
+   - debug:
+      msg: " Interface Speed is {{ blah }} bits per sec"

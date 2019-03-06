@@ -1,0 +1,17 @@
+---
+- name: With Items Interface Description Changes
+  hosts: 1800cpe 
+  connection: network_cli
+  tasks:
+  - name: Get IOS facts
+    ios_facts:
+
+  - name: Change Loopback Description
+    ios_config:
+      lines:
+        - Description by Ansible {{ ansible_net_hostname }}
+      parents: "{{ item }}"
+    with_items:
+      - interface fa7
+      - interface fa8
+...

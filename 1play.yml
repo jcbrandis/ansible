@@ -1,0 +1,12 @@
+---
+- name: Fact Gather 
+  hosts: 1800cpe 
+  connection: network_cli
+  tasks:
+  - name: Get IOS facts
+    ios_facts:
+    register: output
+
+  - name: show output
+    debug:
+      var: output.stdout
