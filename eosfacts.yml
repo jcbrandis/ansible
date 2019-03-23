@@ -1,0 +1,14 @@
+---
+- name: Fact Gather 
+  hosts: arista 
+  connection: network_cli
+  tasks:
+  - name: Get EOS facts
+    eos_facts:
+      gather_subset:
+        - config
+    register: output
+#
+  - name: show output
+    debug:
+      var: ansible_net_config.stdout

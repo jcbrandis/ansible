@@ -1,0 +1,14 @@
+---
+- name: Show Runner
+  hosts: arista 
+  connection: network_cli
+  tasks:
+  - name: SHOW RUN
+    eos_command:
+      commands:
+        - show run
+    register: show_run
+
+  - name: show output
+    debug:
+      var: show_run.stdout
