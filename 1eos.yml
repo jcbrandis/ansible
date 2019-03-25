@@ -1,0 +1,34 @@
+---
+- hosts: arista
+  gather_facts: yes
+  connection: network_cli
+#  gather_facts: yes
+
+  tasks:
+
+    - eos_command:
+        commands: show running-config
+ #       encoding: text
+      register: output
+
+    - name: copy to file
+      copy: content="{{ output.stdout[0] }}" dest="configs/{{ inventory_hostname }}.{{ ansible_date_time.date }}.cfg"
+##
+##
+##
+- name: Fact Gather 
+  hosts: 1800cpe 
+  connection: network_cli
+  tasks:
+    - name: run show ver
+      ios_command:
+        commands: show version
+        register: output
+
+    - name: output to file
+      debug:
+        var: output.stdout
+
+    - name: copy to file
+      copy: content="{{ output.stdout[0] }}" dest={{ inventory_hostname }}.{{ ansible_date_time.date }}.cfg"
+    - debug: var=after_vty.stdout_lines

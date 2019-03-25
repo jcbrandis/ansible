@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  gather_facts: no
+#  connection: network_cli
+  tasks:
+      - name: Get current timestamp
+        local_action: command bash -c "date +%Y-%m-%d.%H%M"
+        register: timestamp
+        run_once: true
+
+      - debug: var=timestamp.stdout

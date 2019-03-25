@@ -1,0 +1,11 @@
+---
+- hosts: arista
+  gather_facts: no
+  connection: network_cli
+#  gather_facts: yes
+
+  tasks:
+
+   - name: Configure The Hostname 
+     eos_config:
+       lines: hostname {{ inventory_hostname }}

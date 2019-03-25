@@ -3,12 +3,26 @@
   hosts: arista 
   connection: network_cli
   tasks:
-  - name: SHOW RUN
-    eos_command:
-      commands:
-        - show run
-    register: show_run
 
-  - name: show output
+#  - name: SHOW RUN
+#    eos_command:
+#      commands:
+#        - show run
+#   register: show_run
+
+#  - name: show output
+#    debug:
+#      var: show_run.stdout
+
+  - name: BACKUP THE CONFIG
+    eos_config:
+      backup:
+      register: config_output
+
+
+  - name: output to file
     debug:
-      var: show_run.stdout
+      var: config_output.stdout_lines
+
+  - name: copy to file
+    copy: content="{{ config_output.stdout[0] }}" dest={{ inventory_hostname }}.txt

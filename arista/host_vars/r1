@@ -1,0 +1,20 @@
+---
+ansible_host: 192.168.1.101
+ansible_connection: network_cli
+ansible_become_method: enable
+ansible_become: yes
+ansible_network_os: ios
+ansible_user: cisco
+wan_bandwidth: 20mb
+telstra_circuit_id: FNN12345
+nbn_wan_type: fttn
+qos_shaper: 6color-20mb-nbn-shaper
+
+interfaces:
+  - int_name: fa4
+    ip_address: 10.111.4.1
+    ip_mask: 255.255.255.0
+
+  - int_name: fa5
+    ip_address: 10.111.5.1
+    ip_mask: 255.255.255.0

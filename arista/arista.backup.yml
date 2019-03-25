@@ -1,0 +1,15 @@
+---
+- hosts: arista
+  gather_facts: yes
+  connection: network_cli
+#  gather_facts: yes
+
+  tasks:
+    - eos_command:
+        commands: show running-config
+ #       encoding: text
+      register: output
+
+    - name: copy to file
+      copy: content="{{ output.stdout[0] }}" dest=configs/{{ inventory_hostname }}{{ dateandtime.stdout_lines[0] }}.txt
+#  - debug: var=after_vty.stdout_lines

@@ -1,0 +1,29 @@
+---
+- hosts: localhost
+  gather_facts: no
+#  connection: network_cli
+  tasks:
+      - name: Get current timestamp
+        local_action: command bash -c "date +%Y-%m-%d.%H%M"
+        register: timestamp
+        run_once: true
+
+      - debug: var=timestamp.stdout
+
+      - name: Print the Time   
+        debug:
+          msg: "The Time is {{ ansible_date_time.date }} "
+###
+- name: Save running config to file (Arista)
+  hosts: arista 
+  connection: network_cli
+  gather_facts: no
+  tasks:
+    - eos_command:
+        commands: show running-config
+#        encoding: text
+      register: output
+
+    - name: copy to file
+      copy: content="{{ output.stdout[0] }}" dest=configs/{{ inventory_hostname }}.'date'.txt
+#  - debug: var=after_vty.stdout_lines
